@@ -9,6 +9,17 @@ class Entity():
         self._direction: Direction = Direction.LEFT
         self._color = color
 
+    def move(self) -> bool:
+        if self._direction == Direction.LEFT:
+            self._x -= 0.1
+        elif self._direction == Direction.RIGHT:
+            self._x += 0.1
+        elif self._direction == Direction.UP:
+            self._y -= 0.1
+        elif self._direction == Direction.DOWN:
+            self._y += 0.1
+        return False
+
     @property
     def x(self):
         return self._x

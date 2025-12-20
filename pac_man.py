@@ -38,18 +38,7 @@ class App:
         while self.is_running:
             dt = self.clock.tick(Constants.FPS) / 1000.0
             self.elapsed_time += dt
-#            if self.board.game_state == GameState.PLAY and not self.board.is_game_over():
-#                self.time_accumulator += dt
-#
-#                if self.time_accumulator >= self.board.get_level_speed():
-#                    self.display_time = int(self.elapsed_time)
-#                    self.time_accumulator = 0.0
-#            else:
-#                self.time_accumulator = 0.0
-#
-#            if self.board.game_state == GameState.PLAY:
-#                self.board.find_shadow_pos()
-            
+            self.board.update()
             self.handle_events()
             self.draw()
         pygame.quit()

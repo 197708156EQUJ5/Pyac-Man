@@ -14,6 +14,10 @@ class Board():
         self._maze: Maze = MazeManager()
         self._renderer = BoardRenderer(self._maze, self._entities)
 
+    def update(self):
+        for entity in self._entities:
+            entity.move()
+
     def draw(self, surface: pygame.Surface):
         self._renderer.draw(surface)
 
