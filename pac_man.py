@@ -10,8 +10,7 @@ warnings.filterwarnings(
 )
 import pygame
 
-from entities import Pacman
-from maze import Maze
+from board import Board
 from utils import Constants
 from utils import Direction
 
@@ -33,8 +32,7 @@ class App:
         self.display_time = 0.0
         self.time_accumulator = 0.0
 
-        self.maze = Maze()
-        self.pacman = Pacman()
+        self.board = Board()
 
     def run(self):
         while self.is_running:
@@ -93,7 +91,7 @@ class App:
         self.screen.fill(Constants.BG_COLOR)
 
         # Draw UI
-#        self.board.draw(self.screen)
+        self.board.draw(self.screen)
 
         pygame.display.flip()
 
