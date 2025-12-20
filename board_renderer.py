@@ -1,13 +1,16 @@
 import pygame
+from typing import List
 
+from entities import Entity
 from maze import MazeManager
 from utils import Constants
 from utils import TileType
 
 class BoardRenderer():
 
-    def __init__(self, maze: MazeManager):
+    def __init__(self, maze: MazeManager, entities: List[Entity]):
         self._maze_manager: MazeManager = maze
+        self._entities: List[Entity] = entities
 
     def draw(self, surface: pygame.Surface):
         size = 0
@@ -25,3 +28,8 @@ class BoardRenderer():
                 y += tile.size
                 pygame.draw.rect(surface, tile.color, (x, y, w, h))
 
+        for entity in self._entities:
+            origin_x = entity.x * Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO
+            origin_y = entity.y * Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO
+            r = Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO
+            pygame.draw.circle(surface, entity.color, (origin_x, origin_y), r)

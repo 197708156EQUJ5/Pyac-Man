@@ -1,10 +1,11 @@
-from utils import Direction
+from entities import Entity
+from utils import Color
 
-class Pacman():
+class Pacman(Entity):
 
     def __init__(self):
-        pass
+        super().__init__(14, 26.5, color=Color.YELLOW)
 
-    def move(self, direction: Direction) -> bool:
+    def move(self) -> bool:
         print(f"{direction}")
         return False
