@@ -1,24 +1,20 @@
+from abc import ABC, abstractmethod
+
 from utils import Color
 from utils import Direction
 
-class Entity():
+class Entity(ABC):
 
     def __init__(self, x: float = 0.0, y: float = 0.0, color: Color = Color.BLACK):
         self._x = x
         self._y = y
         self._direction: Direction = Direction.LEFT
         self._color = color
+        self._mode: float = 0.8
 
-    def move(self) -> bool:
-        if self._direction == Direction.LEFT:
-            self._x -= 0.1
-        elif self._direction == Direction.RIGHT:
-            self._x += 0.1
-        elif self._direction == Direction.UP:
-            self._y -= 0.1
-        elif self._direction == Direction.DOWN:
-            self._y += 0.1
-        return False
+    @abstractmethod
+    def move(self, dt):
+        pass
 
     @property
     def x(self):

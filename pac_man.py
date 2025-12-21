@@ -38,7 +38,7 @@ class App:
         while self.is_running:
             dt = self.clock.tick(Constants.FPS) / 1000.0
             self.elapsed_time += dt
-            self.board.update()
+            self.update(dt)
             self.handle_events()
             self.draw()
         pygame.quit()
@@ -73,7 +73,7 @@ class App:
             pass
 
     def update(self, dt: float):
-        pass
+        self.board.update(dt)
 
     def draw(self):
         # Fill screen with background 0,0,0

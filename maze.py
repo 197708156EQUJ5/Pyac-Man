@@ -32,7 +32,7 @@ class MazeManager():
             size = Tile.LARGE
             tile_type = TileType.WALL
         elif tile == '^':
-            color = Color.LT_PINK
+            color = Color.OFF_WHITE
             size = Tile.EXTRA_SMALL
             tile_type = TileType.PELLET
         elif tile == '&':
