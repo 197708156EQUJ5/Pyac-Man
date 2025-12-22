@@ -9,6 +9,7 @@ class Pacman(Entity):
 
     def __init__(self):
         super().__init__(PacmanConstants.INIT[0], PacmanConstants.INIT[1], color=Color.YELLOW)
+        self._user_direction: Direction = Direction.NONE
 
     def move(self, dt):
         delta = dt * PacmanConstants.BASE_SPEED * self._mode
@@ -33,3 +34,12 @@ class Pacman(Entity):
             y += 1
 
         return (x, y)
+
+    @property
+    def user_direction(self):
+        return self._user_direction
+
+    @user_direction.setter
+    def user_direction(self, value):
+        self._user_direction = value
+
