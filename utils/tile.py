@@ -35,6 +35,10 @@ class Tile():
     def tile_type(self):
         return self._tile_type
 
+    @tile_type.setter
+    def tile_type(self, value):
+        self._tile_type = value
+
     @property
     def size(self):
         return self._size

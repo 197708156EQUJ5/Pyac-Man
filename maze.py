@@ -56,15 +56,26 @@ class MazeManager():
         return self._maze
     
     def is_wall(self, col: int, row: int) -> bool:
-        for tile in self._maze:
-            if tile.col == col and tile.row == row:
-                return tile.tile_type == TileType.WALL
+        tile = self._get_tile(col, row)
+        return tile.tile_type == TileType.WALL
 
     def has_pellet(self, col: int, row: int) -> bool:
-        return False
+        tile = self._get_tile(col, row)
+        return tile.tile_type == TileType.PELLET
 
     def has_power_pellet(self, col: int, row: int) -> bool:
-        return False
+        tile = self._get_tile(col, row)
+        return tile.tile_type == TileType.POWER_PELLET
+
+    def delicious(self, col: int, row: int):
+        tile = self._get_tile(col, row)
+        if tile:
+            tile.tile_type = TileType.EMPTY
+
+    def _get_tile(self,  col: int, row: int) -> Tile:
+        for tile in self._maze:
+            if tile.col == int(col) and tile.row == int(row):
+                return tile
 
     def is_tunnel(self, col: int, row: int) -> bool:
         return False

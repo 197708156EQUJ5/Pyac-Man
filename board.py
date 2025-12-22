@@ -38,7 +38,10 @@ class Board():
             next_col, next_row = entity.next_cell()
 
             if self._can_move((next_col, next_row)):
+                prev_pos = (entity.x, entity.y)
                 entity.move(dt)
+                curr_pos = (entity.x, entity.y)
+                self._is_pellet_eaten(prev_pos, curr_pos)
                 continue
 
             if entity.direction == Direction.LEFT:
@@ -72,6 +75,19 @@ class Board():
             else:
                 # Direction.NONE
                 pass
+
+    def _is_pellet_eaten(self, prev_pos: tuple[float, float], curr_pos: tuple[float, float]) -> bool:
+        col = curr_pos[0]
+        row = curr_pos[1]
+        if not self._maze.has_pellet(int(col), int(row)):
+            return
+
+        if self._pacman.direction == Direction.RIGHT or self._pacman.direction == Direction.DOWN:
+            if prev_pos[0] <= int(col) + 0.5 <= col and prev_pos[1] <= int(row) + 0.5 <= row:
+                self._maze.delicious(col, row)
+        elif self._pacman.direction == Direction.LEFT or self._pacman.direction == Direction.UP:
+            if col <= int(col) + 0.5 <= prev_pos[0] and row <= int(row) + 0.5 <= prev_pos[1]:
+                self._maze.delicious(col, row)
 
     def draw(self, surface: pygame.Surface):
         self._renderer.draw(surface)

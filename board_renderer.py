@@ -3,7 +3,7 @@ from typing import List
 
 from entities import Entity
 from maze import MazeManager
-from utils import Constants
+from utils import Constants, Color
 from utils import TileType
 
 class BoardRenderer():
@@ -23,6 +23,10 @@ class BoardRenderer():
                 origin_x = x + (Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO // 2)
                 origin_y = y + (Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO // 2)
                 pygame.draw.circle(surface, tile.color, (origin_x, origin_y), w // 2)
+            elif tile.tile_type == TileType.EMPTY:
+                x += tile.size
+                y += tile.size
+                pygame.draw.rect(surface, Color.BLACK, (x, y, w, h))
             else:
                 x += tile.size
                 y += tile.size
