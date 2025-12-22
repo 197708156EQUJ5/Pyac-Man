@@ -1,3 +1,5 @@
+import math
+
 from entities import Entity
 from utils import Color
 from utils import PacmanConstants
@@ -9,13 +11,25 @@ class Pacman(Entity):
         super().__init__(PacmanConstants.INIT[0], PacmanConstants.INIT[1], color=Color.YELLOW)
 
     def move(self, dt):
-        pixels_moved = dt * PacmanConstants.BASE_SPEED * self._mode * 8
-        print(f"{pixels_moved}")
+        delta = dt * PacmanConstants.BASE_SPEED * self._mode
         if self._direction == Direction.LEFT:
-            self._x -= dt * PacmanConstants.BASE_SPEED * self._mode
+            self._x -= delta
         elif self._direction == Direction.RIGHT:
-            self._x += dt * PacmanConstants.BASE_SPEED * self._mode
+            self._x += delta
         elif self._direction == Direction.UP:
-            self._y -= dt * PacmanConstants.BASE_SPEED * self._mode
+            self._y -= delta
         elif self._direction == Direction.DOWN:
-            self._y += dt * PacmanConstants.BASE_SPEED * self._mode
+            self._y += delta
+
+    def next_cell(self):
+        x, y = (int(self._x), int(self._y))
+        if self._direction == Direction.LEFT:
+            x -= 1
+        elif self._direction == Direction.RIGHT:
+            x += 1
+        elif self._direction == Direction.UP:
+            y -= 1
+        elif self._direction == Direction.DOWN:
+            y += 1
+
+        return (x, y)

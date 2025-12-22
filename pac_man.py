@@ -37,9 +37,9 @@ class App:
     def run(self):
         while self.is_running:
             dt = self.clock.tick(Constants.FPS) / 1000.0
-            self.elapsed_time += dt
-            self.update(dt)
+            dt = min(dt, 0.05)
             self.handle_events()
+            self.update(dt)
             self.draw()
         pygame.quit()
 
@@ -59,18 +59,14 @@ class App:
                 self.handle_key_down(event)
 
     def handle_key_down(self, event: pygame.event.Event):
-        can_move = True
         if event.key == pygame.K_LEFT:
-            self.pacman.move(Direction.LEFT)
+            self.board.change_direction(Direction.LEFT)
         elif event.key == pygame.K_RIGHT:
-            self.pacman.move(Direction.RIGHT)
+            self.board.change_direction(Direction.RIGHT)
         elif event.key == pygame.K_DOWN:
-            can_move = self.pacman.move(Direction.DOWN)
+            self.board.change_direction(Direction.DOWN)
         elif event.key == pygame.K_UP:
-            can_move = self.pacman.move(Direction.UP)
-
-        if not can_move:
-            pass
+            self.board.change_direction(Direction.UP)
 
     def update(self, dt: float):
         self.board.update(dt)

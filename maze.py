@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List
 
+from utils import Constants
 from utils import Color
 from utils import Tile
 from utils import TileType
@@ -55,7 +56,9 @@ class MazeManager():
         return self._maze
     
     def is_wall(self, col: int, row: int) -> bool:
-        return False
+        for tile in self._maze:
+            if tile.col == col and tile.row == row:
+                return tile.tile_type == TileType.WALL
 
     def has_pellet(self, col: int, row: int) -> bool:
         return False

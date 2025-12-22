@@ -17,3 +17,16 @@ class Ghost(Entity):
             self._y -= dt * EntityConstants.BASE_SPEED * self._mode
         elif self._direction == Direction.DOWN:
             self._y += dt * EntityConstants.BASE_SPEED * self._mode
+
+    def next_cell(self):
+        x, y = (int(self._x), int(self._y))
+        if self._direction == Direction.LEFT:
+            x -= 1
+        elif self._direction == Direction.RIGHT:
+            x += 1
+        elif self._direction == Direction.UP:
+            y -= 1
+        elif self._direction == Direction.DOWN:
+            y += 1
+
+        return (x, y)
