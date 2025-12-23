@@ -4,11 +4,11 @@ from typing import List
 
 from maze import MazeManager
 from board_renderer import BoardRenderer
-from entities import Entity
-from entities import Pacman
-from entities import Ghost
-from utils import EntityConstants, Pinky, Inky, Blinky, Clyde
-from utils import Direction
+from entities.entity import Entity
+from entities.pacman import Pacman
+from entities.ghost import Ghost
+from utils.constants import EntityConstants, Pinky, Inky, Blinky, Clyde
+from utils.direction import Direction
 
 class Board():
 

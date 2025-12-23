@@ -1,5 +1,5 @@
 
-from utils import Color
+from utils.color import Color
 
 class Tile():
 

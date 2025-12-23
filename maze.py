@@ -1,10 +1,10 @@
 from pathlib import Path
 from typing import List
 
-from utils import Constants
-from utils import Color
-from utils import Tile
-from utils import TileType
+from utils.color import Color
+from utils.constants import Constants
+from utils.tile import Tile
+from utils.tile_type import TileType
 
 class MazeManager():
 

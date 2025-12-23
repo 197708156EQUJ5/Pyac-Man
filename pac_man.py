@@ -11,8 +11,8 @@ warnings.filterwarnings(
 import pygame
 
 from board import Board
-from utils import Constants
-from utils import Direction
+from utils.constants import Constants
+from utils.direction import Direction
 
 class App:
 

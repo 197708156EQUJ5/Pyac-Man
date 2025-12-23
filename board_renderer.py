@@ -1,11 +1,13 @@
 import pygame
 from typing import List
 
-from entities import Entity
+from entities.entity import Entity
 from maze import MazeManager
-from utils import Constants, Color
-from utils import TileType
-from utils import Utils
+from utils.color import Color
+from utils.constants import Constants
+from utils.resources import Utils
+from utils.tile import Tile
+from utils.tile_type import TileType
 
 class BoardRenderer():
 
