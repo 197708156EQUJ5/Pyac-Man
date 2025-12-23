@@ -1,5 +1,6 @@
 
 from utils.color import Color
+from utils.tile_type import TileType
 
 class Tile():
 
@@ -8,12 +9,21 @@ class Tile():
     SMALL = 2
     EXTRA_SMALL = 3
 
-    def __init__(self, tile_type, size: int, color):
+    def __init__(self, tile_type: TileType, size: int, color):
         self._col = 0
         self._row = 0
         self._tile_type = tile_type
+        self._wall_mask = 0
         self._size = size
         self._color = color
+
+    @property
+    def wall_mask(self):
+        return self._wall_mask
+
+    @wall_mask.setter
+    def wall_mask(self, value):
+        self._wall_mask = value
 
     @property
     def col(self):

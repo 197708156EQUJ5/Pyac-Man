@@ -23,11 +23,11 @@ class MazeManager():
                     tile.col = col
                     self._maze.append(tile)
 
-#        for tile in self._maze:
-#            if tile.tile_type == TileType.WALL:
-#                col = tile.col
-#                row = tile.row
-
+        for tile in self._maze:
+            if tile.tile_type == TileType.WALL:
+                col = tile.col
+                row = tile.row
+                tile.wall_mask = self._create_wall_mask(col, row)
 
     def _calculate_tile(self, tile: str, col: int, row: int) -> Tile:
         color: Color = Color.BLACK
@@ -54,17 +54,59 @@ class MazeManager():
             color = Color.BLACK
             size = Tile.SMALL
             tile_type = TileType.TUNNEL
+        elif tile == '-':
+            color = Color.BLACK
+            size = Tile.SMALL
+            tile_type = TileType.OFF
 
         return Tile(tile_type, size, color)
 
-    def _get_wall_type(self, col: int, row: int) -> TileType:
-        c = int(col)
-        r = int(row)
-        if c == 0:
-            if self._get_tile(c, r - 1).tile_type == TileType.EMPTY:
-                return TileType.WALL_ONW
+    def _create_wall_mask(self, col, row):
+        rows = Constants.ROW_COUNT
+        cols = Constants.COLUMN_COUNT
 
-        return TileType.WALL
+        mask = 0
+        bit_0 = 0
+        bit_1 = 0
+        bit_2 = 0
+        bit_3 = 0
+        bit_4 = 0
+
+        # North
+        if row > 0 and self.is_wall(col, row - 1):
+            bit_0 = 1
+            mask |= 1
+
+        # South
+        if row < rows - 1 and self.is_wall(col, row + 1):
+            bit_1 = 1
+            mask |= 2
+
+        # East
+        if col > 0 and self.is_wall(col - 1, row):
+            bit_2 = 1
+            mask |= 4
+
+        # West
+        if col < cols - 1 and self.is_wall(col + 1, row):
+            bit_3 = 1
+            mask |= 8
+
+#        if row < 0 and row > rows - 1:
+#            return mask
+        
+        for r in range(-1, 1):
+            for c in range(-1, 1):
+                if col + c < 0 or col + c > cols - 1 or row + r < 0 or row + c > rows - 1:
+                    bit_4 = 1
+                    mask |= 16
+                elif self._get_tile(col + c, row + r).tile_type == TileType.OFF:
+                    bit_4 = 1
+                    mask |= 16
+
+        if row == 33:
+            print(f"{col},{row} mask: {mask} {bit_4}{bit_3}{bit_2}{bit_1}{bit_0}")
+        return mask
 
     @property
     def maze(self) -> List[Tile]:
@@ -87,7 +129,7 @@ class MazeManager():
         if tile:
             tile.tile_type = TileType.EMPTY
 
-    def _get_tile(self,  col: int, row: int) -> Tile:
+    def _get_tile(self, col: int, row: int) -> Tile:
         return self._maze[int(row) * Constants.COLUMN_COUNT + int(col)]
 
     def is_tunnel(self, col: int, row: int) -> bool:

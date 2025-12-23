@@ -24,3 +24,4 @@ class TileType(Enum):
     POWER_PELLET = auto()
     DOOR = auto()
     TUNNEL = auto()
+    OFF = auto()
