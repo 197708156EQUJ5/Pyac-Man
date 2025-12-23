@@ -18,12 +18,18 @@ class MazeManager():
                 if not line:
                     continue
                 for col, tile_ch in enumerate(line):
-                    tile: Tile = self._calculate_tile(tile_ch)
+                    tile: Tile = self._calculate_tile(tile_ch, col, row)
                     tile.row = row
                     tile.col = col
                     self._maze.append(tile)
 
-    def _calculate_tile(self, tile: str) -> Tile:
+#        for tile in self._maze:
+#            if tile.tile_type == TileType.WALL:
+#                col = tile.col
+#                row = tile.row
+
+
+    def _calculate_tile(self, tile: str, col: int, row: int) -> Tile:
         color: Color = Color.BLACK
         size: int = Tile.LARGE
         tile_type: TileType = TileType.EMPTY
@@ -51,6 +57,15 @@ class MazeManager():
 
         return Tile(tile_type, size, color)
 
+    def _get_wall_type(self, col: int, row: int) -> TileType:
+        c = int(col)
+        r = int(row)
+        if c == 0:
+            if self._get_tile(c, r - 1).tile_type == TileType.EMPTY:
+                return TileType.WALL_ONW
+
+        return TileType.WALL
+
     @property
     def maze(self) -> List[Tile]:
         return self._maze
@@ -73,9 +88,7 @@ class MazeManager():
             tile.tile_type = TileType.EMPTY
 
     def _get_tile(self,  col: int, row: int) -> Tile:
-        for tile in self._maze:
-            if tile.col == int(col) and tile.row == int(row):
-                return tile
+        return self._maze[int(row) * Constants.COLUMN_COUNT + int(col)]
 
     def is_tunnel(self, col: int, row: int) -> bool:
         return False

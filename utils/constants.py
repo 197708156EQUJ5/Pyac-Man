@@ -1,3 +1,5 @@
+import math
+
 from utils import Color
 
 class Constants():
@@ -17,7 +19,7 @@ class Constants():
     FPS = 60.606061
     KEY_REPEAT_DELAY = 400      # ms
     KEY_REPEAT_INTERVAL = 50    # ms
-    
+
 # Entity Related Constants
 class EntityConstants():
     INIT = (0,0)
@@ -43,3 +45,4 @@ class Pinky():
 class Clyde():
     INIT = (16, 17.5)
     COLOR = Color.ORANGE
+

@@ -5,10 +5,15 @@ from .resources import Utils
 from .tile import Tile
 from .tile_type import TileType
 
-__all_ = [
+__all__ = [
     "Color",
     "Constants",
+    "EntityConstants",
     "PacmanConstants",
+    "Inky",
+    "Blinky",
+    "Pinky",
+    "Clyde",
     "Direction",
     "GameState",
     "Utils",
