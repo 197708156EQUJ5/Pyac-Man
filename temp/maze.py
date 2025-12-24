@@ -1,17 +1,27 @@
+import json
 from pathlib import Path
-from typing import List
+from typing import List, NamedTuple
 
 from utils.color import Color
 from utils.constants import Constants
 from utils.tile import Tile
 from utils.tile_type import TileType
 
+class SpriteTile(NamedTuple):
+    key: tuple[int,int]
+    col: int
+    row: int
+
 class MazeManager():
 
     def __init__(self):
         self._maze: List[Tile] = []
+        self._walls: List[SpriteTile] = []
 
-        file_name: str = "assets/resources/maze_sheet"
+        with open('tile_map.json', 'r') as f:
+            data = json.load(f)
+
+        file_name: str = "maze_sheet"
         with open(file_name, "r", encoding="utf-8") as f:
             for row, line in enumerate(f):
                 line = line.rstrip("\n")
@@ -23,11 +33,15 @@ class MazeManager():
                     tile.col = col
                     self._maze.append(tile)
 
-        for tile in self._maze:
-            if tile.tile_type == TileType.WALL:
-                col = tile.col
-                row = tile.row
-                tile.wall_mask = self._create_wall_mask(col, row)
+        file_name: str = "wall_sheet"
+        with open(file_name, "r", encoding="utf-8") as f:
+            for row, line in enumerate(f):
+                line = line.rstrip("\n")
+                if not line:
+                    continue
+                for col, ch in enumerate(line):
+                    if not ch == '.' and not ch == '#':
+                        self._get_tile(col, row).wall_mask = (data[ch]['x'],data[ch]['y'])
 
     def _calculate_tile(self, tile: str, col: int, row: int) -> Tile:
         color: Color = Color.BLACK
@@ -60,72 +74,6 @@ class MazeManager():
             tile_type = TileType.OFF
 
         return Tile(tile_type, size, color)
-
-    def _create_wall_mask(self, col, row):
-        rows = Constants.ROW_COUNT
-        cols = Constants.COLUMN_COUNT
-
-        mask = 0
-        bit_0 = 0
-        bit_1 = 0
-        bit_2 = 0
-        bit_3 = 0
-        bit_4 = 0
-        bit_5 = 0
-        bit_6 = 0
-        bit_7 = 0
-
-        # South
-        if row > 0 and self.is_wall(col, row - 1):
-            bit_0 = 1
-            mask |= 1
-
-        # North
-        if row < rows - 1 and self.is_wall(col, row + 1):
-            bit_1 = 1
-            mask |= 2
-
-        # West
-        if col > 0 and self.is_wall(col - 1, row):
-            bit_2 = 1
-            mask |= 4
-
-        # East
-        if col < cols - 1 and self.is_wall(col + 1, row):
-            bit_3 = 1
-            mask |= 8
-
-        if mask & 12: # wall runs east-west
-            if self._is_off(col, row - 1):
-                bit_4 = 1
-                mask |= 16
-            elif self._is_off(col, row + 1):
-                bit_5 = 1
-                mask |= 32
-        if mask & 3: # wall runs north-south
-            if col - 1 < 0 or self._is_off(col - 1, row):
-                bit_6 = 1
-                mask |= 64
-            elif col >= cols - 1 or self._is_off(col + 1, row):
-                bit_7 = 1
-                mask |= 128
-
-
-#        for r in range(-1, 2):
-#            for c in range(-1, 2):
-#                if col + c < 0 or col + c > cols - 1 or row + r < 0 or row + c > rows - 1:
-#                    bit_4 = 1
-#                    mask |= 16
-#                    continue
-#                elif self._get_tile(col + c, row + r).tile_type == TileType.OFF:
-#                    bit_4 = 1
-#                    mask |= 16
-#                    continue
-
-        #if row == 33 or row == 3:
-        if row == 5:
-            print(f"{col},{row} mask: {mask} {bit_7}{bit_6}{bit_5}{bit_4}{bit_3}{bit_2}{bit_1}{bit_0}")
-        return mask
 
     @property
     def maze(self) -> List[Tile]:
