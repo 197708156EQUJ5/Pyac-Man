@@ -28,23 +28,41 @@ class SpritesheetManager():
     def get_tile(self, tile: Tile) -> pygame.Surface:
 
         if tile.wall_mask & 16:
-            if tile.wall_mask == 26:
+            if tile.wall_mask == 90: # Northwest corner outer wall
                 return self._tiles[4 * Constants.SS_COLS + 17]
-            elif tile.wall_mask == 28:
+            elif tile.wall_mask == 28: # North outer wall
                 return self._tiles[4 * Constants.SS_COLS + 26]
-            elif tile.wall_mask == 22:
+            elif tile.wall_mask == 150: # Northeast corner outer wall
                 return self._tiles[4 * Constants.SS_COLS + 16]
+        else:
+            if tile.wall_mask == 11:
+                return self._tiles[3 * Constants.SS_COLS + 24]
+            elif tile.wall_mask == 7:
+                return self._tiles[3 * Constants.SS_COLS + 25]
 
-            elif tile.wall_mask == 25:
-                return self._tiles[4 * Constants.SS_COLS + 21]
+            elif tile.wall_mask == 10:
+                #return self._tiles[3 * Constants.SS_COLS + 23]
+                return self._tiles[9 * Constants.SS_COLS + 9]
             elif tile.wall_mask == 12:
+                return self._tiles[3 * Constants.SS_COLS + 20]
+            elif tile.wall_mask == 6:
+                #return self._tiles[3 * Constants.SS_COLS + 22]
+                return self._tiles[9 * Constants.SS_COLS + 10]
+
+        if tile.wall_mask & 32:
+            if tile.wall_mask == 105:
+                return self._tiles[4 * Constants.SS_COLS + 21]
+            elif tile.wall_mask == 44:
                 return self._tiles[4 * Constants.SS_COLS + 28]
-            elif tile.wall_mask == 5:
+            elif tile.wall_mask == 165:
                 return self._tiles[4 * Constants.SS_COLS + 20]
 
-            elif tile.wall_mask == 19:
+        if tile.wall_mask & 64:
+            if tile.wall_mask == 67:
                 return self._tiles[4 * Constants.SS_COLS + 19]
-            elif tile.wall_mask == 3:
+
+        if tile.wall_mask & 128:
+            if tile.wall_mask == 131:
                 return self._tiles[4 * Constants.SS_COLS + 18]
 
         return  self._tiles[2 * Constants.SS_COLS + 0]
