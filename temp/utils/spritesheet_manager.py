@@ -16,7 +16,7 @@ class SpritesheetManager():
         for row in range(0, Constants.SS_ROWS):
             for col in range(0, Constants.SS_COLS):
                 #src_rect = pygame.Rect(col, row, Constants.TILE_SIZE * 2, Constants.TILE_SIZE * 2)
-                src_rect = pygame.Rect(col * 48 + 1, row * 48 + 1, 46, 46)
+                src_rect = pygame.Rect(col * 48, row * 48, 48, 48)
                 tile = self._spritesheet.subsurface(src_rect).copy()
                 tile = pygame.transform.scale(tile, 
                     (Constants.SS_TILE_SIZE // 2, Constants.SS_TILE_SIZE // 2))
