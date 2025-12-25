@@ -13,7 +13,7 @@ class Tile():
         self._col = 0
         self._row = 0
         self._tile_type = tile_type
-        self._wall_mask: tuple[int,int] = (0,2)
+        self._wall_mask: tuple[int,int] = (31, 6)
         self._size = size
         self._color = color
 
