@@ -14,12 +14,16 @@ class Constants():
     TILE_ROW_COUNT = 3
     COLUMN_COUNT = 28
     ROW_COUNT = 36
-    SPRITESHEET_PATH = 'assets/images/pacman-spritesheet.png'
-    FONT_PATH = 'assets/fonts/ttf/JetBrainsMono-Regular.ttf'
     BG_COLOR = (0, 0, 0)
     FPS = 60.606061
     KEY_REPEAT_DELAY = 400      # ms
     KEY_REPEAT_INTERVAL = 50    # ms
+
+    SPRITESHEET_PATH = 'assets/images/pacman-spritesheet.png'
+    FONT_PATH = 'assets/fonts/ttf/JetBrainsMono-Regular.ttf'
+    MAZE_SHEET_PATH = 'assets/resources/maze_sheet'
+    WALL_SHEET_PATH = 'assets/resources/wall_sheet'
+    TILE_MAP_PATH = 'assets/resources/tile_map.json'
 
 # Entity Related Constants
 class EntityConstants():

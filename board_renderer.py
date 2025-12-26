@@ -21,8 +21,7 @@ class BoardRenderer():
         self._spritesheet_manager = SpritesheetManager()
 
     def draw(self, surface: pygame.Surface):
-        size = 0
-        idx = 0
+        
         for tile in self._maze_manager.maze:
             x = tile.col * Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO
             y = tile.row * Constants.TILE_SIZE * Constants.TILE_DISPLAY_RATIO
