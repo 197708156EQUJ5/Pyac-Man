@@ -74,6 +74,7 @@ class App:
     def draw(self):
         # Fill screen with background 0,0,0
         self.screen.fill(Constants.BG_COLOR)
+        self.screen.fill((255, 0, 255))
 
         # Draw UI
         self.board.draw(self.screen)

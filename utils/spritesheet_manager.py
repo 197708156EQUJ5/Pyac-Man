@@ -1,3 +1,4 @@
+import json
 import pygame
 from typing import List
 
@@ -11,6 +12,11 @@ class SpritesheetManager():
         self._tiles: List[pygame.Surface] = []
         self._wall_tiles = []
         self._load_tiles()
+        self._sprite_tiles = {}
+
+        file_name: str = Constants.TILE_MAP_PATH
+        with open(file_name, 'r') as f:
+            self._sprite_tiles = json.load(f)
 
     def _load_tiles(self):
         for row in range(0, Constants.SS_ROWS):
@@ -22,6 +28,10 @@ class SpritesheetManager():
                     (Constants.SS_TILE_SIZE // 2, Constants.SS_TILE_SIZE // 2))
                 self._tiles.append(tile)
 
-    def get_tile(self, tile: Tile) -> pygame.Surface:
-        return self._tiles[tile.wall_mask[1] * Constants.SS_COLS + tile.wall_mask[0]]
+    def get_tile(self, category, tile: Tile) -> pygame.Surface:
+        try:
+            col, row = self._sprite_tiles[category][tile.tile_type]['x'], self._sprite_tiles[category][tile.tile_type]['y']
+            return self._tiles[row * Constants.SS_COLS + col]
+        except KeyError:
+            return self._tiles[6 * Constants.SS_COLS + 31]
 

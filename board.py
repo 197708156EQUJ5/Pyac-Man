@@ -84,10 +84,10 @@ class Board():
 
         if self._pacman.direction == Direction.RIGHT or self._pacman.direction == Direction.DOWN:
             if prev_pos[0] <= int(col) + 0.5 <= col and prev_pos[1] <= int(row) + 0.5 <= row:
-                self._maze.delicious(col, row)
+                self._maze.consume_pellet(col, row)
         elif self._pacman.direction == Direction.LEFT or self._pacman.direction == Direction.UP:
             if col <= int(col) + 0.5 <= prev_pos[0] and row <= int(row) + 0.5 <= prev_pos[1]:
-                self._maze.delicious(col, row)
+                self._maze.consume_pellet(col, row)
 
     def draw(self, surface: pygame.Surface):
         self._renderer.draw(surface)
